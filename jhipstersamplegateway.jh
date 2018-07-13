@@ -1,0 +1,28 @@
+entity Blog {
+	name String required,
+    handle String required,
+}
+
+entity Entry {
+	title String required,
+    content TextBlob required,
+    date Instant required
+}
+
+entity Tag {
+	name String required
+}
+
+relationship ManyToOne {
+	Blog{user(login)} to User
+    Entry{blog(name)} to Blog
+}
+
+relationship ManyToMany {
+	Entry{tag(name)} to Tag{entry}
+}
+
+microservice * with JHipsterSampleMicroservice
+paginate * with infinite-scroll
+dto * with mapstruct
+service * with serviceImpl
